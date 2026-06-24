@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MassBESS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+  <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.5.0/web.js"></script>
+
+  <script defer src="legend-config.js"></script>
+  <script defer src="legend.js"></script>
+
+  <script defer src="popups.js"></script>
+  <script defer src="popup-config.js"></script>
+
+  <link rel="icon" type="image/svg+xml" href="Assets/vennfrog_logomark.svg">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/tmb6nnc.css">
+  <link rel="stylesheet" href="styles.css">
+
+  
+  <style>
+    html,
+    body { 
+      margin: 0; 
+      padding: 0; 
+      height:100%;
+      font-family: "acumin-pro", sans-serif; 
+      font-weight:400;
+      font-style: normal;
+      color: var(--gray-20);
+    }
+
+  </style>
+</head>
+<body>
+  <a class="map-logo" target="_blank" rel="noopener">
+    <img src="Assets/vennfrog_logo.svg" alt="Vennfrog logo">
+  </a>
+  <div id="map"></div>
+  <div id="legend"></div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoicGV0cm9sYXR1bSIsImEiOiJjbXFmanAzdDYxbjdvMnFxMzVuMWo4cW43In0.7XRGgEj6Y1Jl_0WWuwoLhA';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/petrolatum/cmqs4c2vn002i01qo3lxv5nsf',
+    center: [ -72.12, 42.42],
+    zoom: 8,
+    localIdeographFontFamily: '"acumin-pro", sans-serif'
+  });
+  //map.addControl(new mapboxgl.NavigationControl());
+  
+  map.on('load', () => {
+    
+    const searchBox = new MapboxSearchBox();
+    searchBox.accessToken = mapboxgl.accessToken;
+    searchBox.options ={
+      types:'address,poi',
+      proximity: [-79.99, 40.44]
+    };
+    map.addControl(searchBox,'top-right');
+
+    buildLegend(window.legendGroups, map);
+
+    setupPopups(window.popupConfigs, map);
+
+    document.getElementById('map').style.visibility = 'visible';
+  });
+
+</script>
+</body>
+</html>
