@@ -5,7 +5,7 @@ window.legendGroups = [
     layers: [
       {
         label: 'Eligible C&I Parcels',
-        layerIds: ['Eligible Parcels'],
+        layerIds: ['Eligible Parcels', 'Eligible Parcels Polygons'],
         checkboxId: 'layer-eligible-parcels',
         legendType: 'single',
         symbol: 'point',
